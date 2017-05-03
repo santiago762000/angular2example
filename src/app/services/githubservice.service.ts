@@ -7,9 +7,13 @@ export class GithubserviceService {
 
   constructor(private http: Http) { }
 
-  getRepositories() {
-    return this.http.get('https://api.github.com/users/defunkt')
-      .map(res => res.json())
+  getRepositories(name:String) {
+    return this.http.get('https://api.github.com/users/'+name)
+      .map(res => res.json()).catch(this.showError);
+  }
+
+  private showError(error:Response){
+    return error.json();
   }
 
 }
