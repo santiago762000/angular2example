@@ -1,3 +1,54 @@
-<h1>
-  {{title}}
-</h1>
+<md-toolbar color="primary">
+  <span>Repositories</span>
+</md-toolbar>
+
+
+<md-tab-group>
+  <md-tab label="Lookup">
+<div layout="row" layout-align="end end">
+    <md-input-container >
+      <input mdInput type="text" [(ngModel)]="repository.name" placeholder="Repository Name:">
+    </md-input-container>
+    <button md-icon-button (click)="showName()">
+          <md-icon>search</md-icon>
+        </button>
+</div>
+        
+    <md-nav-list>
+      <md-list-item *ngFor="let repo of defaultRepositories">
+        <a md-line href="...">{{ repo.name }}</a>
+        <button md-icon-button (click)="showDialogData()">
+          <md-icon>info</md-icon>
+        </button>
+        <button md-icon-button (click)="showName()">
+          <md-icon>favorite</md-icon>
+        </button>
+      </md-list-item>
+    </md-nav-list>
+  </md-tab>
+
+  <md-tab label="Favorites">
+    <md-nav-list>
+      <md-list-item *ngFor="let repo of defaultRepositories">
+        <a md-line href="...">{{ repo.name }}</a>
+        <button md-icon-button (click)="showName()">
+          <md-icon>info</md-icon>
+        </button>
+      </md-list-item>
+    </md-nav-list>
+  </md-tab>
+</md-tab-group>
+
+
+
+<!--<md-input-container>
+  <input mdInput type="text" [(ngModel)]="repository.name" placeholder="name">
+</md-input-container>
+
+ <md-select type="number"   [(ngModel)]="selectedRepository" (ngModelChange)="showSelectedOption()">
+     <md-option *ngFor="let repo of defaultRepositories" [value]="repo">{{repo.name}}</md-option>
+   </md-select>
+
+
+    
+<button md-raised-button (click)="showName()">Show Repository Name</button>-->
