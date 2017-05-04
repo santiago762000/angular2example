@@ -15,24 +15,51 @@ export class AppComponent {
     private myService: GithubserviceService,
     public snackBar: MdSnackBar) { }
 
-  repository = { "name": "" };
-
-
-  defaultRepositories: Array<Repository> = [
-    { "id": 1, "name": "Angular" },
-    { "id": 2, "name": "Leaflet" },
-    { "id": 3, "name": "bootstrap" },
-    { "id": 4, "name": "jquery" }
-  ];
-  selectedRepository: Repository = this.defaultRepositories[3];//We can do this with a constructor too
+  repository = { "name": "",path:"" };
+  repoContents: Array<Repository> = [];
+  selectedRepository: Repository = this.repoContents[3];//We can do this with a constructor too
 
   showName() {
+    this.repoContents=[];
+    //this.repository = { "name": "",path:"" };
     this.myService.getRepositories(this.repository.name).subscribe(posts => {
-      alert(JSON.stringify(posts.login));
+      posts.forEach((x)=>{
+        this.repoContents.push({ "id": x.id, "name": x.name });
+        
+      });
     }, err => {
       this.showSnackBar("Not Found","Error");
     });
   }
+
+  updatePath(path){
+    this.repository.path+=path;
+    alert(this.repository.path);
+    this.showContents();
+  }
+
+  return(){
+    this.repository.path=this.repository.path.substring(0, this.repository.path.lastIndexOf("/"));
+    if(this.repository.path!=""){
+      this.showName();
+    }else{
+      this.showContents();
+    }
+    
+  }
+
+  showContents(){
+    this.repoContents=[];
+    this.myService.getListOfFiles(this.repository.name,this.repository.path).subscribe(posts => {
+      posts.forEach((x)=>{
+        this.repoContents.push({ "id": x.id, "name": x.name });
+      });
+    }, err => {
+      this.showSnackBar("There is an error getting the file list","Error");
+    });
+  }
+
+  
 
   showSelectedOption() {
     alert("You selected1:" + this.selectedRepository.name);

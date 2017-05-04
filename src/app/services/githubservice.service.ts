@@ -7,8 +7,13 @@ export class GithubserviceService {
 
   constructor(private http: Http) { }
 
-  getRepositories(name:String) {
-    return this.http.get('https://api.github.com/users/'+name)
+  getRepositories(userName:String) {
+    return this.http.get('https://api.github.com/users/'+userName+'/repos')
+      .map(res => res.json()).catch(this.showError);
+  }
+
+  getListOfFiles(userName:String, repoName:String) {
+    return this.http.get('https://api.github.com/repos/'+userName+repoName+'/contents')
       .map(res => res.json()).catch(this.showError);
   }
 

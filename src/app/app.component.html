@@ -7,16 +7,17 @@
   <md-tab label="Lookup">
 <div layout="row" layout-align="end end">
     <md-input-container >
-      <input mdInput type="text" [(ngModel)]="repository.name" placeholder="Repository Name:">
+      <input mdInput type="text" [(ngModel)]="repository.name" placeholder="Username:">
     </md-input-container>
     <button md-icon-button (click)="showName()">
           <md-icon>search</md-icon>
-        </button>
+    </button>
 </div>
+
         
     <md-nav-list>
-      <md-list-item *ngFor="let repo of defaultRepositories">
-        <a md-line href="...">{{ repo.name }}</a>
+      <md-list-item *ngFor="let repo of repoContents">
+        <span md-line>{{ repo.name }}</span>
         <button md-icon-button (click)="showDialogData()">
           <md-icon>info</md-icon>
         </button>
