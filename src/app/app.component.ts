@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MdDialog,MdDialogRef } from '@angular/material';
 import { MyDialogExample } from './dialogs/mydialog.component';
 import { MdSnackBar } from '@angular/material';
 import { GithubserviceService } from './services/githubservice.service';
@@ -14,45 +14,32 @@ export class AppComponent {
   constructor(public dialog: MdDialog,
     private myService: GithubserviceService,
     public snackBar: MdSnackBar) { }
-
-  repository = { "name": "",path:"" };
+  
+  username = "";
+  navigationPath=[];
+  filterOptions=[{name:"name",value:"name"},{name:"date",value:"pushed_at"}];
+  selectedFilter=this.filterOptions[0];
   repoContents: Array<Repository> = [];
   selectedRepository: Repository = this.repoContents[3];//We can do this with a constructor too
 
   showName() {
     this.repoContents=[];
-    //this.repository = { "name": "",path:"" };
-    this.myService.getRepositories(this.repository.name).subscribe(posts => {
-      posts.forEach((x)=>{
-        this.repoContents.push({ "id": x.id, "name": x.name });
-        
-      });
+    this.navigationPath=[];
+    this.navigationPath.push({pathLabel:"/",path:"/"});
+    this.myService.getRepositories(this.username).subscribe(posts => {
+        this.repoContents=posts;
     }, err => {
       this.showSnackBar("Not Found","Error");
     });
   }
 
-  updatePath(path){
-    this.repository.path+=path;
-    alert(this.repository.path);
-    this.showContents();
-  }
+  
 
-  return(){
-    this.repository.path=this.repository.path.substring(0, this.repository.path.lastIndexOf("/"));
-    if(this.repository.path!=""){
-      this.showName();
-    }else{
-      this.showContents();
-    }
-    
-  }
-
-  showContents(){
+  showContents(path){
     this.repoContents=[];
-    this.myService.getListOfFiles(this.repository.name,this.repository.path).subscribe(posts => {
+    this.myService.getListOfFiles(this.username,path).subscribe(posts => {
       posts.forEach((x)=>{
-        this.repoContents.push({ "id": x.id, "name": x.name });
+        this.repoContents.push(x);
       });
     }, err => {
       this.showSnackBar("There is an error getting the file list","Error");
@@ -65,8 +52,12 @@ export class AppComponent {
     alert("You selected1:" + this.selectedRepository.name);
   }
 
-  showDialogData() {
-    this.dialog.open(MyDialogExample);
+  showDialogData(repo) {
+    //this.dialog.open(MyDialogExample);
+    let dialogRef: MdDialogRef<MyDialogExample>;
+    dialogRef = this.dialog.open(MyDialogExample);
+    dialogRef.componentInstance.htmUrl = repo.html_url;
+    
   }
 
   showSnackBar(message: string, action: string) {

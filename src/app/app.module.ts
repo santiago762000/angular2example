@@ -9,12 +9,16 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { MyDialogExample } from './dialogs/mydialog.component';
+import { KeysPipe } from './pipes/keys.pipe';
+import { OrderByPipe } from './pipes/order-by.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MyDialogExample
+    MyDialogExample,
+    KeysPipe,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,

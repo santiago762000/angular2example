@@ -5,20 +5,24 @@
 
 <md-tab-group>
   <md-tab label="Lookup">
-<div layout="row" layout-align="end end">
-    <md-input-container >
-      <input mdInput type="text" [(ngModel)]="repository.name" placeholder="Username:">
-    </md-input-container>
-    <button md-icon-button (click)="showName()">
+    <div layout="row" layout-align="end end">
+      <md-input-container>
+        <input mdInput type="text" [(ngModel)]="username" placeholder="Username">
+      </md-input-container>
+      <button md-icon-button (click)="showName()">
           <md-icon>search</md-icon>
     </button>
-</div>
-
-        
+    </div>
+    <div layout="row" layout-align="end end">
+        <md-select type="string" placeholder="Order by" [(ngModel)]="selectedFilter">
+          <md-option *ngFor="let option of filterOptions" [value]="option">{{option.name}}</md-option>
+        </md-select>
+    </div>
     <md-nav-list>
-      <md-list-item *ngFor="let repo of repoContents">
+      <md-list-item *ngFor="let repo of repoContents|orderBy:selectedFilter">
         <span md-line>{{ repo.name }}</span>
-        <button md-icon-button (click)="showDialogData()">
+        <span >{{ repo.pushed_at|date: 'dd/MM/yyyy' }}</span>
+        <button md-icon-button (click)="showDialogData(repo)">
           <md-icon>info</md-icon>
         </button>
         <button md-icon-button (click)="showName()">
