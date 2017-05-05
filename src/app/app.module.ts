@@ -7,6 +7,8 @@ import {MaterialModule} from '@angular/material';
 import 'hammerjs';
 
 
+
+
 import { AppComponent } from './app.component';
 import { MyDialogExample } from './dialogs/mydialog.component';
 import { KeysPipe } from './pipes/keys.pipe';

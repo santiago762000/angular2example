@@ -25,7 +25,7 @@
         <button md-icon-button (click)="showDialogData(repo)">
           <md-icon>info</md-icon>
         </button>
-        <button md-icon-button (click)="showName()">
+        <button md-icon-button (click)="addToFavourites(repo)">
           <md-icon>favorite</md-icon>
         </button>
       </md-list-item>
@@ -34,10 +34,14 @@
 
   <md-tab label="Favorites">
     <md-nav-list>
-      <md-list-item *ngFor="let repo of defaultRepositories">
-        <a md-line href="...">{{ repo.name }}</a>
-        <button md-icon-button (click)="showName()">
-          <md-icon>info</md-icon>
+      <md-list-item *ngFor="let favourite of favourites;let i = index;">
+        <span md-line href="...">{{ favourite.name }}</span>
+        <a href={{favourite.url}} target="_blank">
+          <md-icon>open_in_new</md-icon>
+        </a>
+        
+        <button md-icon-button (click)="removeFromFavourites(i)">
+          <md-icon>delete</md-icon>
         </button>
       </md-list-item>
     </md-nav-list>

@@ -3,18 +3,24 @@ import { MdDialog,MdDialogRef } from '@angular/material';
 import { MyDialogExample } from './dialogs/mydialog.component';
 import { MdSnackBar } from '@angular/material';
 import { GithubserviceService } from './services/githubservice.service';
+import { LocalstorageService } from './services/localstorage.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [GithubserviceService]
+  providers: [GithubserviceService,LocalstorageService]
 })
 export class AppComponent {
   constructor(public dialog: MdDialog,
     private myService: GithubserviceService,
-    public snackBar: MdSnackBar) { }
-  
+    private localstorageService: LocalstorageService,
+    public snackBar: MdSnackBar) { 
+      this.favourites=this.localstorageService.getObjectsFromFavourites();
+
+    }
+  favourites:any[];
   username = "";
   navigationPath=[];
   filterOptions=[{name:"name",value:"name"},{name:"date",value:"pushed_at"}];
@@ -23,6 +29,7 @@ export class AppComponent {
   selectedRepository: Repository = this.repoContents[3];//We can do this with a constructor too
 
   showName() {
+    
     this.repoContents=[];
     this.navigationPath=[];
     this.navigationPath.push({pathLabel:"/",path:"/"});
@@ -66,6 +73,15 @@ export class AppComponent {
     });
   }
 
+  addToFavourites(repo){
+    this.localstorageService.addObjectToFavourites({name:repo.name,url:repo.html_url});
+    this.favourites=this.localstorageService.getObjectsFromFavourites();
+  }
+
+  removeFromFavourites(index){
+    this.localstorageService.deleteFavourite(index);
+    this.favourites=this.localstorageService.getObjectsFromFavourites();
+  }
 
 
 }
