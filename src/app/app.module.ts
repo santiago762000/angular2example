@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { MyDialogExample } from './dialogs/mydialog.component';
 import { KeysPipe } from './pipes/keys.pipe';
 import { OrderByPipe } from './pipes/order-by.pipe';
+import { ConfirmactionDirective } from './directives/confirmaction.directive';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { OrderByPipe } from './pipes/order-by.pipe';
     AppComponent,
     MyDialogExample,
     KeysPipe,
-    OrderByPipe
+    OrderByPipe,
+    ConfirmactionDirective
   ],
   imports: [
     BrowserModule,

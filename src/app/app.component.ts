@@ -79,8 +79,8 @@ export class AppComponent {
   }
 
   removeFromFavourites(index){
-    this.localstorageService.deleteFavourite(index);
-    this.favourites=this.localstorageService.getObjectsFromFavourites();
+    //this.localstorageService.deleteFavourite(index);
+    //this.favourites=this.localstorageService.getObjectsFromFavourites();
   }
 
 

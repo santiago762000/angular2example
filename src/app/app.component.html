@@ -35,12 +35,12 @@
   <md-tab label="Favorites">
     <md-nav-list>
       <md-list-item *ngFor="let favourite of favourites;let i = index;">
-        <span md-line href="...">{{ favourite.name }}</span>
+        <span md-line>{{ favourite.name }}</span>
         <a href={{favourite.url}} target="_blank">
           <md-icon>open_in_new</md-icon>
         </a>
         
-        <button md-icon-button (click)="removeFromFavourites(i)">
+        <button md-icon-button (click)="removeFromFavourites(i)" appConfirmaction>
           <md-icon>delete</md-icon>
         </button>
       </md-list-item>
