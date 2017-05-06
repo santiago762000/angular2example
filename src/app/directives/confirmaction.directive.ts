@@ -1,15 +1,18 @@
-import { Directive,HostListener } from '@angular/core';
-
+import { Directive,HostListener,Input } from '@angular/core';
 
 @Directive({
-  selector: '[appConfirmaction]'
+  selector: `[appConfirmaction]`
 })
 export class ConfirmactionDirective {
+  @Input() appConfirmaction = () => {};
+  @Input() confirmMessage = 'Are you sure you want to do this?';
 
-   @HostListener('click', ['$event'])
-   confirmFirst(event: Event) {
-    return window.confirm('Do you want to remove this item?');
-   }
+  @HostListener('click', ['$event'])
+  confirmFirst() {
+    const confirmed = window.confirm(this.confirmMessage);
 
-
+    if(confirmed) {
+      this.appConfirmaction();
+    }
+  }
 }

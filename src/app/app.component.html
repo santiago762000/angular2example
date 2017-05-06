@@ -40,7 +40,7 @@
           <md-icon>open_in_new</md-icon>
         </a>
         
-        <button md-icon-button (click)="removeFromFavourites(i)" appConfirmaction>
+        <button md-icon-button [appConfirmaction]="showSimpleMessage" >
           <md-icon>delete</md-icon>
         </button>
       </md-list-item>
