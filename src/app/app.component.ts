@@ -83,10 +83,9 @@ export class AppComponent {
     //this.favourites=this.localstorageService.getObjectsFromFavourites();
   }
 
-  showSimpleMessage(){
-    alert("asdasd");
+  showSimpleMessage(name:string){
+    alert("Hello "+name);
   }
-
 
 }
 
